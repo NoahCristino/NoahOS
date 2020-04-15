@@ -1,15 +1,16 @@
 #ifndef KERNEL_H
 #define KERNEL_H
 
-#include "types.h"
+#include <stddef.h>
+#include <stdint.h>
+#include <stdbool.h>
 
-#define NULL 0
 
 #define VGA_ADDRESS 0xB8000
 #define BUFSIZE 2200
 
-uint16* vga_buffer;
-extern uint32 vga_index;
+uint16_t* vga_buffer;
+extern uint32_t vga_index;
 
 enum vga_color {
     BLACK,
@@ -30,7 +31,7 @@ enum vga_color {
     WHITE,
 };
 
-extern void clear_screen(uint8, uint8);
+extern void clear_screen(uint8_t, uint8_t);
 extern void print_new_line();
 extern void draw_banner();
 extern void draw_title(char *);
@@ -43,12 +44,12 @@ extern void menu();
 extern void login();
 extern void print_char(char);
 extern void print_string(char *);
-extern void print_color_string(const char *, uint8, uint8);
+extern void print_color_string(const char *, uint8_t, uint8_t);
 extern void print_int(int);
-extern uint8 inb(uint16);
-extern void outb(uint16, uint8);
-extern byte get_input_keycode();
-extern void sleep(uint32);
-extern void gotoxy(uint16, uint16);
+extern uint8_t inb(uint16_t);
+extern void outb(uint16_t, uint8_t);
+extern uint8_t get_input_keycode();
+extern void sleep(uint32_t);
+extern void gotoxy(uint16_t, uint16_t);
 
 #endif

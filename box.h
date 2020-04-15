@@ -1,8 +1,8 @@
 #ifndef BOX_H
 #define BOX_H
 
-#include "types.h"
 
+#include <stdint.h>
 #define BOX_MAX_WIDTH 78
 #define BOX_MAX_HEIGHT 23
 
@@ -11,14 +11,14 @@
 
 
 
-extern void draw_generic_box(uint16, uint16, uint16, uint16, 
-                            uint8, uint8, uint8, uint8, 
-                            uint8, uint8, uint8, uint8);
+extern void draw_generic_box(uint16_t, uint16_t, uint16_t, uint16_t, 
+                            uint8_t, uint8_t, uint8_t, uint8_t, 
+                            uint8_t, uint8_t, uint8_t, uint8_t);
 
-extern void draw_box(uint8, uint16, uint16, uint16, uint16,
-                      uint8, uint8);
+extern void draw_box(uint8_t, uint16_t, uint16_t, uint16_t, uint16_t,
+                      uint8_t, uint8_t);
 
-extern void fill_box(uint8, uint16, uint16, uint16, uint16, uint8);
+extern void fill_box(uint8_t, uint16_t, uint16_t, uint16_t, uint16_t, uint8_t);
 
 
 #endif

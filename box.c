@@ -1,12 +1,12 @@
 #include "kernel.h"
-#include "types.h"
+#include <stdint.h>
 #include "utils.h"
 #include "box.h"
 
-uint16 get_box_draw_char(uint8 chn, uint8 fore_color, uint8 back_color)
+uint16_t get_box_draw_char(uint8_t chn, uint8_t fore_color, uint8_t back_color)
 {
-  uint16 ax = 0;
-  uint8 ah = 0;
+  uint16_t ax = 0;
+  uint8_t ah = 0;
 
   ah = back_color;
   ah <<= 4;
@@ -18,17 +18,17 @@ uint16 get_box_draw_char(uint8 chn, uint8 fore_color, uint8 back_color)
   return ax;
 }
 
-void draw_generic_box(uint16 x, uint16 y, 
-                      uint16 width, uint16 height,
-                      uint8 fore_color, uint8 back_color,
-                      uint8 topleft_ch,
-                      uint8 topbottom_ch,
-                      uint8 topright_ch,
-                      uint8 leftrightside_ch,
-                      uint8 bottomleft_ch,
-                      uint8 bottomright_ch)
+void draw_generic_box(uint16_t x, uint16_t y, 
+                      uint16_t width, uint16_t height,
+                      uint8_t fore_color, uint8_t back_color,
+                      uint8_t topleft_ch,
+                      uint8_t topbottom_ch,
+                      uint8_t topright_ch,
+                      uint8_t leftrightside_ch,
+                      uint8_t bottomleft_ch,
+                      uint8_t bottomright_ch)
 {
-  uint32 i;
+  uint32_t i;
 
   //increase vga_index to x & y location
   vga_index = 80*y;
@@ -81,10 +81,10 @@ void draw_generic_box(uint16 x, uint16 y,
   vga_index = 0;
 }
 
-void draw_box(uint8 boxtype, 
-              uint16 x, uint16 y, 
-              uint16 width, uint16 height,
-              uint8 fore_color, uint8 back_color)
+void draw_box(uint8_t boxtype, 
+              uint16_t x, uint16_t y, 
+              uint16_t width, uint16_t height,
+              uint8_t fore_color, uint8_t back_color)
 {
   switch(boxtype){
     case BOX_SINGLELINE : 
@@ -101,9 +101,9 @@ void draw_box(uint8 boxtype,
   }
 }
 
-void fill_box(uint8 ch, uint16 x, uint16 y, uint16 width, uint16 height, uint8 color)
+void fill_box(uint8_t ch, uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t color)
 {
-  uint32 i,j;
+  uint32_t i,j;
 
   for(i = 0; i < height; i++){
     //increase vga_index to x & y location

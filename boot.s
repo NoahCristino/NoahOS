@@ -19,7 +19,7 @@
 # set the stack bottom 
 stackBottom:
 
-# define the maximum size of stack to 512 bytes
+# define the maximum size of stack to 512 uint8_ts
 .skip 4096
 
 

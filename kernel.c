@@ -3,15 +3,15 @@
 #include "keyboard.h"
 #include "char.h"
 #include "box.h"
-uint32 vga_index;
-static uint32 next_line_index = 1;
-uint8 g_fore_color = WHITE, g_back_color = BLUE;
+uint32_t vga_index;
+static uint32_t next_line_index = 1;
+uint8_t g_fore_color = WHITE, g_back_color = BLUE;
 int digit_ascii_codes[10] = {0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39};
 
-uint16 vga_entry(unsigned char ch, uint8 fore_color, uint8 back_color) 
+uint16_t vga_entry(unsigned char ch, uint8_t fore_color, uint8_t back_color) 
 {
-  uint16 ax = 0;
-  uint8 ah = 0, al = 0;
+  uint16_t ax = 0;
+  uint8_t ah = 0, al = 0;
 
   ah = back_color;
   ah <<= 4;
@@ -24,25 +24,25 @@ uint16 vga_entry(unsigned char ch, uint8 fore_color, uint8 back_color)
   return ax;
 }
 
-void clear_vga_buffer(uint16 **buffer, uint8 fore_color, uint8 back_color)
+void clear_vga_buffer(uint16_t **buffer, uint8_t fore_color, uint8_t back_color)
 {
-  uint32 i;
+  uint32_t i;
   for(i = 0; i < BUFSIZE; i++){
-    (*buffer)[i] = vga_entry(NULL, fore_color, back_color);
+    (*buffer)[i] = vga_entry(0, fore_color, back_color);
   }
   next_line_index = 1;
   vga_index = 0;
 }
 
-void init_vga(uint8 fore_color, uint8 back_color)
+void init_vga(uint8_t fore_color, uint8_t back_color)
 {  
-  vga_buffer = (uint16*)VGA_ADDRESS;
+  vga_buffer = (uint16_t*)VGA_ADDRESS;
   clear_vga_buffer(&vga_buffer, fore_color, back_color);
   g_fore_color = fore_color;
   g_back_color = back_color;
 }
 
-void clear_screen(uint8 fore_color, uint8 back_color)
+void clear_screen(uint8_t fore_color, uint8_t back_color)
 {
   clear_vga_buffer(&vga_buffer, fore_color, back_color);
 }
@@ -65,17 +65,17 @@ void print_char(char ch)
 
 void print_string(char *str)
 {
-  uint32 index = 0;
+  uint32_t index = 0;
   while(str[index]){
     print_char(str[index]);
     index++;
   }
 }
 
-void print_color_string(const char* str, uint8 fore_color, uint8 back_color)
+void print_color_string(const char* str, uint8_t fore_color, uint8_t back_color)
 {
-  uint32 index = 0;
-  uint8 fc, bc;
+  uint32_t index = 0;
+  uint8_t fc, bc;
   fc = g_fore_color;
   bc = g_back_color;
   g_fore_color = fore_color;
@@ -95,21 +95,21 @@ void print_int(int num)
   print_string(str_num);
 }
 
-uint8 inb(uint16 port)
+uint8_t inb(uint16_t port)
 {
-  uint8 ret;
+  uint8_t ret;
   asm volatile("inb %1, %0" : "=a"(ret) : "d"(port));
   return ret;
 }
 
-void outb(uint16 port, uint8 data)
+void outb(uint16_t port, uint8_t data)
 {
   asm volatile("outb %0, %1" : "=a"(data) : "d"(port));
 }
 
-byte get_input_keycode()
+uint8_t get_input_keycode()
 {
-  byte keycode = 0;
+  uint8_t keycode = 0;
   while((keycode = inb(KEYBOARD_PORT)) != 0){
     if(keycode > 0)
       return keycode;
@@ -122,7 +122,7 @@ keep the cpu busy for doing nothing(nop)
 so that io port will not be processed by cpu
 here timer can also be used, but lets do this in looping counter
 */
-void wait_for_io(uint32 timer_count)
+void wait_for_io(uint32_t timer_count)
 {
   while(1){
     asm volatile("nop");
@@ -132,12 +132,12 @@ void wait_for_io(uint32 timer_count)
     }
 }
 
-void sleep(uint32 timer_count)
+void sleep(uint32_t timer_count)
 {
   wait_for_io(timer_count);
 }
 
-void gotoxy(uint16 x, uint16 y)
+void gotoxy(uint16_t x, uint16_t y)
 {
   vga_index = 80*y;
   vga_index += x;
@@ -346,7 +346,7 @@ void login()
 	    gotoxy(28,8);
 	    print_string(username);
 	    gotoxy(28,12);
-	    for (uint32 x=0;x!=strlen(pass);++x){
+	    for (uint32_t x=0;x!=strlen(pass);++x){
 	    	print_char('*');
 	    }
           }

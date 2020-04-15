@@ -1,8 +1,8 @@
 #include "utils.h"
 
-uint32 strlen(const char* str)
+uint32_t strlen(const char* str)
 {
-  uint32 length = 0;
+  uint32_t length = 0;
   while(str[length])
     length++;
   return length;
@@ -37,9 +37,9 @@ int strcmp(const char *p1, const char *p2)
   return c1 - c2;
 
 }
-uint32 digit_count(int num)
+uint32_t digit_count(int num)
 {
-  uint32 count = 0;
+  uint32_t count = 0;
   if(num == 0)
     return 1;
   while(num > 0){

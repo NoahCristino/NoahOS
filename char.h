@@ -1,11 +1,11 @@
 #ifndef CHAR_H
 #define CHAR_H
 
-#include "types.h"
+#include <stdint.h>
 #include "keyboard.h"
 
 
-extern char get_ascii_char(uint8);
+extern char get_ascii_char(uint8_t);
 
 #endif
 
