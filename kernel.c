@@ -35,7 +35,7 @@ void clear_vga_buffer(uint16_t **buffer, uint8_t fore_color, uint8_t back_color)
 }
 
 void init_vga(uint8_t fore_color, uint8_t back_color)
-{  
+{ 
   vga_buffer = (uint16_t*)VGA_ADDRESS;
   clear_vga_buffer(&vga_buffer, fore_color, back_color);
   g_fore_color = fore_color;
@@ -101,11 +101,10 @@ uint8_t inb(uint16_t port)
   asm volatile("inb %1, %0" : "=a"(ret) : "d"(port));
   return ret;
 }
-
-void outb(uint16_t port, uint8_t data)
-{
-  asm volatile("outb %0, %1" : "=a"(data) : "d"(port));
+void outb(uint16_t port, uint8_t data) {
+  asm("outb %%al, %%dx" : : "a"(data), "d"(port));
 }
+
 
 uint8_t get_input_keycode()
 {
@@ -393,6 +392,8 @@ void login()
 void kernel_entry()
 {
   init_vga(WHITE, BLACK);
+  outb(0x3D4, 0x0A);
+  outb(0x3D5, 0x20);
   login();
 }
 
