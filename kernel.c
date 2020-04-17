@@ -40,6 +40,8 @@ void init_vga(uint8_t fore_color, uint8_t back_color)
   clear_vga_buffer(&vga_buffer, fore_color, back_color);
   g_fore_color = fore_color;
   g_back_color = back_color;
+  outb(0x3D4, 0x0A);
+  outb(0x3D5, 0x20);
 }
 
 void clear_screen(uint8_t fore_color, uint8_t back_color)
@@ -392,8 +394,6 @@ void login()
 void kernel_entry()
 {
   init_vga(WHITE, BLACK);
-  outb(0x3D4, 0x0A);
-  outb(0x3D5, 0x20);
   login();
 }
 
