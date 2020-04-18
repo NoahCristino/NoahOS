@@ -3,6 +3,7 @@
 #include "keyboard.h"
 #include "char.h"
 #include "box.h"
+#include "gdt.h"
 uint32_t vga_index;
 static uint32_t next_line_index = 1;
 uint8_t g_fore_color = WHITE, g_back_color = BLUE;
@@ -393,6 +394,7 @@ void login()
 }
 void kernel_entry()
 {
+  gdt_install();
   init_vga(WHITE, BLACK);
   login();
 }
